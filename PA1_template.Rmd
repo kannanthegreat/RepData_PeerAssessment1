@@ -26,6 +26,9 @@ Load input data
 ```{r}
 data <- read.csv("C:/Users/kannanthegreat/Documents/Activity monitoring data project/repdata_data_activity/activity.csv")
 ```
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+```
 ## What is mean total number of steps taken per day?
 
 ```{r}
