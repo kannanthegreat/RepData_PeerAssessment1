@@ -22,6 +22,10 @@ Load input data
 ```r
 data <- read.csv("C:/Users/kannanthegreat/Documents/Activity monitoring data project/repdata_data_activity/activity.csv")
 ```
+
+```r
+knitr::opts_chunk$set(echo = TRUE)
+```
 ## What is mean total number of steps taken per day?
 
 
@@ -38,7 +42,7 @@ total.steps <- tapply(data$steps, data$date, FUN = sum, na.rm = TRUE)
 qplot(total.steps, binwidth = 1000, xlab = "total number of steps taken each day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 ## What is mean and median total number of steps taken per day?
 
 
@@ -68,7 +72,7 @@ ggplot(data = averages, aes(x = interval, y = steps)) + geom_line() + xlab("5-mi
     ylab("average number of steps taken")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 ## On average across all the days in the dataset, the 5-minute interval contains
 the maximum number of steps?
 
@@ -120,7 +124,7 @@ total.steps <- tapply(filled.data$steps, filled.data$date, FUN = sum)
 qplot(total.steps, binwidth = 1000, xlab = "total number of steps taken each day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
  
 
@@ -166,7 +170,7 @@ ggplot(averages, aes(interval, steps)) + geom_line() + facet_grid(day ~ .) +
     xlab("5-minute interval") + ylab("Number of steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 ### Observations:
 
 #### Are there differences in activity patterns between weekdays and weekends? Yes. The plot indicates that the person moves around more (or more active) during the weekend days.
