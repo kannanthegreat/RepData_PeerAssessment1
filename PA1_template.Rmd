@@ -31,21 +31,21 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ## What is mean total number of steps taken per day?
 
-```{r}
+```{r, echo=TRUE}
 library(ggplot2)
 total.steps <- tapply(data$steps, data$date, FUN = sum, na.rm = TRUE)
 qplot(total.steps, binwidth = 1000, xlab = "total number of steps taken each day")
 ```
 ## What is mean and median total number of steps taken per day?
 
-```{r}
+```{r, echo=TRUE}
 mean(total.steps, na.rm = TRUE)
 
 median(total.steps, na.rm = TRUE)
 ```
 ## What is the average daily activity pattern?
 
-```{r}
+```{r, echo=TRUE}
 
 library(ggplot2)
 averages <- aggregate(x = list(steps = data$steps), by = list(interval = data$interval), 
@@ -56,7 +56,7 @@ ggplot(data = averages, aes(x = interval, y = steps)) + geom_line() + xlab("5-mi
 ## On average across all the days in the dataset, the 5-minute interval contains
 the maximum number of steps?
 
-```{r}
+```{r, echo=TRUE}
 averages[which.max(averages$steps), ]
 ```
 ## Imputing missing values
@@ -64,7 +64,7 @@ averages[which.max(averages$steps), ]
 There are many days/intervals where there are missing values (coded as `NA`). The presence of missing days may introduce bias into some calculations or summaries of the data.
 # How many missing?
 
-```{r}
+```{r, echo=TRUE}
 missing <- is.na(data$steps)
 
 table(missing)
@@ -73,7 +73,7 @@ table(missing)
 
 ## Replace each missing value with the mean value of its 5-minute interval
 
-```{r}
+```{r, echo=TRUE}
 fill.value <- function(steps, interval) {
     filled <- NA
     if (!is.na(steps)) 
@@ -84,14 +84,14 @@ filled.data <- data
 filled.data$steps <- mapply(fill.value, filled.data$steps, filled.data$interval)
 ```
 ## make a histogram of the total number of steps taken each day and calculate the mean and median total number of steps.
-```{r}
+```{r, echo=TRUE}
 total.steps <- tapply(filled.data$steps, filled.data$date, FUN = sum)
 qplot(total.steps, binwidth = 1000, xlab = "total number of steps taken each day")
 ```
 
  
 
-```{r}
+```{r, echo=TRUE}
 mean(total.steps)
 
 median(total.steps)
@@ -100,7 +100,7 @@ median(total.steps)
 
 ### Are there differences in activity patterns between weekdays and weekends?
 
-```{r}
+```{r, echo=TRUE}
 weekday.or.weekend <- function(date) {
     day <- weekdays(date)
     if (day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")) 
@@ -114,7 +114,7 @@ filled.data$day <- sapply(filled.data$date, FUN = weekday.or.weekend)
 
 #### Now, let's make a panel plot containing plots of average number of steps taken on weekdays and weekends.
 
-```{r}
+```{r, echo=TRUE}
 averages <- aggregate(steps ~ interval + day, data = filled.data, mean)
 ggplot(averages, aes(interval, steps)) + geom_line() + facet_grid(day ~ .) + 
     xlab("5-minute interval") + ylab("Number of steps")
